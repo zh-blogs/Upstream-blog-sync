@@ -1,12 +1,30 @@
 const uuid = require('uuid').v4;
-const fetch = require('ofetch').$fetch;
-const csv = `https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/blogs-original.csv`;
+const axios = require('axios');
+
+const fetch = async (url, options = {}) => {
+  const { query, body, headers, timeout } = options;
+  const method = options.method || 'GET';
+  const params = query || {};
+  const data = body || {};
+  const config = {
+    method,
+    url,
+    params,
+    data,
+    headers,
+    timeout,
+  };
+  const res = await axios(config);
+  return res.data;
+};
+
+const csv = `https://ghproxy.com/https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/blogs-original.csv`;
 const checkAPI = `https://zhblogs.ohyee.cc/api/blogs`;
 const addAPI = `https://zhblogs.ohyee.cc/api/blog`;
 
 async function main() {
   const data = await fetch(csv).catch(err => {
-    console.log(err.data);
+    console.log(err);
     throw new Error("获取数据失败")
   });
   const lastLine = data.split('\n').pop().length > 0 ? data.split('\n').pop() : data.split('\n')[data.split('\n').length - 2];
@@ -24,13 +42,12 @@ async function main() {
     //   "x-zhblogs-verify": "chinese-independent-blogs-upstream",
     //   "user-agent": "zhblogs/1.0.0"
     // },
-    timeout: 10000
   })
   .then(res => {
     return res.data.total > 0;
   })
   .catch(err => {
-    console.log(err.data);
+    console.log(err);
     throw new Error(`查重 ${name} 失败`)
   });
   if (repeat) {
@@ -56,8 +73,8 @@ async function main() {
   timeout: 10000
  })
   .catch(err => {
-    console.log(err.data);
-    throw new Error(`添加 ${name} 失败 - ${err.data}`)
+    console.log(err);
+    throw new Error(`添加 ${name} 失败 - ${err}`)
   });
  
  console.log(`${name} 已添加到 zhblogs 数据库`);
