@@ -11,7 +11,10 @@ const fetch = async (url, options = {}) => {
     url,
     params,
     data,
-    headers,
+    headers: {
+      ...headers,
+      "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+    },
     timeout,
   };
   const res = await axios(config);
@@ -42,6 +45,7 @@ async function main() {
     //   "x-zhblogs-verify": "chinese-independent-blogs-upstream",
     //   "user-agent": "zhblogs/1.0.0"
     // },
+    timeout: 30000
   })
   .then(res => {
     return res.data.total > 0;
