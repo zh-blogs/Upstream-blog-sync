@@ -1,5 +1,5 @@
 const uuid = require('uuid').v4;
-const fetch = require('ofetch');
+const fetch = require('ofetch').$fetch;
 const csv = `https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/blogs-original.csv`;
 const checkAPI = `https://zhblogs.ohyee.cc/api/blogs`;
 const addAPI = `https://zhblogs.ohyee.cc/api/blog`;
@@ -24,7 +24,6 @@ async function main() {
     // },
     timeout: 10000
   })
-  .then(res => res.json())
   .then(res => res.data.total > 0)
   .catch(err => {
     throw new Error("查重失败", err)
