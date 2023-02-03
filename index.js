@@ -1,5 +1,5 @@
 const uuid = require('uuid').v4;
-
+const fetch = require('ofetch');
 const csv = `https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/blogs-original.csv`;
 const checkAPI = `https://zhblogs.ohyee.cc/api/blogs`;
 const addAPI = `https://zhblogs.ohyee.cc/api/blog`;
@@ -17,7 +17,12 @@ async function main() {
   const repeat = await fetch(checkAPI, {
     query: {
       search: blog[0],
-    }
+    },
+    // headers: {
+    //   "x-zhblogs-verify": "chinese-independent-blogs-upstream",
+    //   "user-agent": "zhblogs/1.0.0"
+    // },
+    timeout: 10000
   })
   .then(res => res.json())
   .then(res => res.data.total > 0)
@@ -43,7 +48,8 @@ async function main() {
           "saveweb_id": "",
           "recommend": false
       }
-  }
+  },
+  timeout: 10000
  })
   .catch(err => {
     throw new Error("添加失败", err)
