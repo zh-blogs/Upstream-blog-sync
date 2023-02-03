@@ -45,7 +45,7 @@ async function main() {
     //   "x-zhblogs-verify": "chinese-independent-blogs-upstream",
     //   "user-agent": "zhblogs/1.0.0"
     // },
-    timeout: 30000
+    timeout: 300000 // 30s
   })
   .then(res => {
     return res.data.total > 0;
