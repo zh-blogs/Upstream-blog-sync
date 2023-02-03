@@ -5,10 +5,12 @@ const checkAPI = `https://zhblogs.ohyee.cc/api/blogs`;
 const addAPI = `https://zhblogs.ohyee.cc/api/blog`;
 
 async function main() {
-  const data = await fetch(csv).then(res => res.text()).catch(err => {
-    throw new Error("获取上游数据失败", err)
+  const data = await fetch(csv).catch(err => {
+    console.log(err.data);
+    throw new Error("获取数据失败")
   });
   const lastLine = data.split('\n').pop().length > 0 ? data.split('\n').pop() : data.split('\n')[data.split('\n').length - 2];
+  if (!lastLine) throw new Error("数据为空");
   const blog = lastLine.split(',');
   const blogsTags = blog[3].split(';');
   const name = blog[0];
@@ -16,7 +18,7 @@ async function main() {
   const tags = blogsTags.map(tag => tag.trim());
   const repeat = await fetch(checkAPI, {
     query: {
-      search: blog[0],
+      search: name,
     },
     // headers: {
     //   "x-zhblogs-verify": "chinese-independent-blogs-upstream",
@@ -24,12 +26,15 @@ async function main() {
     // },
     timeout: 10000
   })
-  .then(res => res.data.total > 0)
+  .then(res => {
+    return res.data.total > 0;
+  })
   .catch(err => {
-    throw new Error("查重失败", err)
+    console.log(err.data);
+    throw new Error(`查重 ${name} 失败`)
   });
   if (repeat) {
-    console.log(`${blog[0]} 已存在于 zhblogs 数据库，跳过`);
+    console.log(`${name} 已存在于 zhblogs 数据库，跳过`);
     return;
   }
   await fetch(addAPI, {
@@ -51,10 +56,11 @@ async function main() {
   timeout: 10000
  })
   .catch(err => {
-    throw new Error("添加失败", err)
+    console.log(err.data);
+    throw new Error(`添加 ${name} 失败 - ${err.data}`)
   });
  
- console.log(`${blog[0]} 已添加到 zhblogs 数据库`);
+ console.log(`${name} 已添加到 zhblogs 数据库`);
  return true;
 }
 
