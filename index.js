@@ -1,6 +1,6 @@
 const uuid = require('uuid').v4;
 
-const csv = `https://ghproxy.com/https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/blogs-original.csv`;
+const csv = `https://raw.githubusercontent.com/timqian/chinese-independent-blogs/master/blogs-original.csv`;
 const checkAPI = `https://zhblogs.ohyee.cc/api/blogs`;
 const addAPI = `https://zhblogs.ohyee.cc/api/blog`;
 
