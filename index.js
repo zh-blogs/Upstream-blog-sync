@@ -5,7 +5,7 @@ const checkAPI = `https://zhblogs.ohyee.cc/api/blogs`;
 const addAPI = `https://zhblogs.ohyee.cc/api/blog`;
 
 async function main() {
-  const data = await fetch(csv).then(res => res.text());
+  const data = await fetch(csv).then(res => res.text()).catch(err => console.log("获取上游数据失败", err));
   const lastLine = data.split('\n').pop().length > 0 ? data.split('\n').pop() : data.split('\n')[data.split('\n').length - 2];
   const blog = lastLine.split(',');
   const blogsTags = blog[3].split(';');
@@ -18,7 +18,8 @@ async function main() {
     }
   })
   .then(res => res.json())
-  .then(res => res.data.total > 0);
+  .then(res => res.data.total > 0)
+  .catch(err => console.log("查重失败", err));
   if (repeat) {
     console.log(`${blog[0]} 已存在于 zhblogs 数据库，跳过`);
     return;
@@ -40,6 +41,7 @@ async function main() {
       }
   }
  })
+  .catch(err => console.log("添加失败", err));
  
  console.log(`${blog[0]} 已添加到 zhblogs 数据库`);
  return true;
