@@ -11,7 +11,7 @@ for i in range(1,10000000):
     break
 
 aaa_a = [urllib.parse.urlparse(i["url"]).netloc for i in sites]
-bbb_b = [urllib.parse.urlparse(i["url"]).netloc for i in requests.get("https://zhblogs.ohyee.cc/api/blogs?size=-1").json()]
+bbb_b = [urllib.parse.urlparse(i["url"]).netloc for i in requests.get("https://zhblogs.ohyee.cc/api/blogs?size=-1").json()["data"]["blogs"]]
 r = set(aaa_a) - set(bbb_b)
 newlist = []
 for i in sites:
