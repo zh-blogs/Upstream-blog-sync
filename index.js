@@ -4,15 +4,15 @@ const fetch = async (url, options = {}) => {
   const { query, body, headers, timeout } = options;
   const method = options.method || 'GET';
   const params = query || {};
-  const data = body || {};
+  const _body = options.method === 'GET' ? undefined : (body || {});
   const config = {
     method,
     url,
     params,
-    data,
+    body: _body,
     headers: {
-      ...headers,
       "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+      ...headers,
     },
     timeout,
   };
@@ -51,7 +51,7 @@ async function main() {
     return res.data.total > 0;
   })
   .catch(err => {
-    console.log(err);
+    console.log(err.message);
     throw new Error(`查重 ${name} 失败`)
   });
   if (repeat) {
