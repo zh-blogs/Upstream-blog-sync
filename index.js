@@ -60,6 +60,9 @@ async function main() {
   }
   console.log(`${name} 不存在于 zhblogs 数据库，进入添加流程`);
   await fetch(addAPI, {
+    headers: {
+      'Content-type': "application/json",
+    },
     method: "PUT",
     body: {
       "token": "",
@@ -78,6 +81,19 @@ async function main() {
  })
   .catch(err => {
     console.log(err);
+    console.log({
+      "token": "",
+      "blog": {
+          "name": name,
+          "url": url,
+          "status": "unknown",
+          "tags": tags,
+          "repeat": false,
+          "enabled": false,
+          "saveweb_id": "",
+          "recommend": false
+      }
+  })
     throw new Error(`添加 ${name} 失败 - ${err}`)
   });
  
