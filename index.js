@@ -35,7 +35,7 @@ async function main() {
   const blog = lastLine.split(',');
   const blogsTags = blog[3].split(';');
   const name = blog[0];
-  const url = blog[1];
+  const url = blog[1].trim(); // 去除 前后空格
   const tags = blogsTags.map(tag => tag.trim());
   const repeat = await fetch(checkAPI, {
     query: {
