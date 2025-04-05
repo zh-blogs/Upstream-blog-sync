@@ -10,8 +10,9 @@ PRIORITIES = {
     # "../数据源4/blogs.json": {"name": 3, "feed": 0},
     # "../数据源5/blogs.json": {"name": 7, "feed": 0},
     "../数据源6/blogs.json": {"name": 2, "feed": 0},
-    "../数据源7/blogs.json": {"name": 5, "feed": 0}
-    # "../数据源8/blogs.json": {"name": 8, "feed": 0}
+    "../数据源7/blogs.json": {"name": 5, "feed": 0},
+    # "../数据源8/blogs.json": {"name": 8, "feed": 0},
+    "../数据源9/blogs.json": {"name": 9, "feed": 9}
 }
 
 
