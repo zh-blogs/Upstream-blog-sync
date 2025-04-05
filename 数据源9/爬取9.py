@@ -39,7 +39,7 @@ def get_data(blogs_url, tag):
             "from": ["https://boke.lu"],
             "status": "OK",  # 上游数据源未提供，默认值
             "enabled": True,  # 默认值
-            "recommen": True
+            "recommen": False
         })
 
     return blogs
