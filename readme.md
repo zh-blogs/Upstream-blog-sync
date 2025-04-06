@@ -16,7 +16,7 @@
 | BKZ | BKZ | [官网](http://www.jetli.com.cn/) | 已采集 | 1 | 博客地址/名称(2) |
 | Travellings | Travellings | [官网](https://travellings.cn) | 已采集 | 0 | 博客地址/名称(5) |
 | Blog114 | Blog114 | [官网](https://blog114.com/e/action/ListInfo/?classid=1) | 等待合作回复 | 0 | 博客地址/名称(8), 博客签名或介绍(1) |
-| 博客录 | bokelu | [官网](http://https://boke.lu/) | 已采集 | 1 | 博客地址/名称(9), 博客签名或介绍(9) |
+| 博客录 | bokelu | [官网](https://boke.lu/) | 已采集 | 0 | 博客地址/名称(9), 博客签名或介绍(9) |
 
 ## 数据结构
 最终导出的数据格式如下：
